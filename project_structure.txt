@@ -1,4 +1,4 @@
-Celery-Test
+ExpenseTracker
 |   config
 |   ├── __init__.py
 |   ├── settings
