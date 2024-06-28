@@ -1,8 +1,0 @@
-[Unit]
-Description=django_test_project socket
-
-[Socket]
-ListenStream=/run/django_test_project.sock
-
-[Install]
-WantedBy=sockets.target
