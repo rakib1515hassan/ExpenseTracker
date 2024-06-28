@@ -42,10 +42,10 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 ## For Custom Apps Creat (apps/my_apps )
 CUSTOM_APPS = [
-    ##! For Admin Panel
-    'apps.core.apps.CoreConfig',                  # core
-    'apps.users.apps.UsersConfig',                # users
-    'apps.dashboards.apps.DashboardsConfig',      # dashboards
+    'apps.core.apps.CoreConfig',                      # core
+    'apps.users.apps.UsersConfig',                    # users
+    'apps.dashboards.apps.DashboardsConfig',          # dashboards
+    'apps.expense_tracker.apps.ExpenseTrackerConfig', # expense_tracker
 ]
 
 
@@ -56,7 +56,7 @@ THIRD_PARTY_APPS = [
     ## For Ckeditor
     # 'ckeditor', 
     # 'ckeditor_uploader',
-    'django_cleanup.apps.CleanupConfig',
+    'django_cleanup.apps.CleanupConfig',           # For clear file from media folder when it is deleted
     
     # 'django_celery_beat',                        # For Celery Bit (Periodic Task)
     # 'django_celery_results',                     # For Celery Backend Results 
@@ -113,7 +113,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            ##! For Admin Panel
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'apps/dashboards/templates'),
             os.path.join(BASE_DIR, 'apps/auth/templates'),

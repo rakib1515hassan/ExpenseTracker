@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('', include('apps.auth.urls',  namespace='auth')),
     path('', include('apps.dashboards.urls', namespace='dashboards')),
+    path('trcker/', include('apps.expense_tracker.urls', namespace='expense_tracker')),
 
 
 
