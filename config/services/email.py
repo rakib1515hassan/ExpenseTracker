@@ -16,4 +16,4 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
 
 EMAIL_USE_SSL = env('EMAIL_USE_SSL')
 # EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'library@texon.ltd'
+DEFAULT_FROM_EMAIL = '<your_default_email>'
