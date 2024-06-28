@@ -1,0 +1,134 @@
+{% extends 'layouts/master.html' %}
+{% load math %}
+
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    Company | List
+{% endblock title %}
+
+
+
+{% block styles %}
+
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+<!-- For TIme Modiul -->
+<link href="{% static 'vendors/flatpickr/flatpickr.min.css' %}" rel="stylesheet" />
+{% endblock styles %}
+
+
+
+
+{% block content %}
+<div class="col-md-8 card mb-3">
+
+    <!-- Header Content -->
+    <div class="card-header bg-light">
+        <div class="row flex-between-center">
+
+            <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+                <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">
+                    <i class="fa-solid fa-hourglass-half fs-1 me-2"></i>
+                    Activity Log Data
+                </h5>
+            </div>
+
+            <div class="col-8 col-sm-auto ms-auto text-end ps-0">
+            </div>
+        </div>
+    </div>
+
+    <!-- Body Content -->
+    <div class="card-body p-4">
+        <div class="table-responsive">
+
+            <div class="d-flex justify-content-between mb-3">
+
+            </div>
+
+            <table width="100%" class="table table-bordered table-striped table-hover fs--1 mb-0">
+                <h6 class="fw-semi-bold ls mb-3 text-uppercase">Log Data</h6>
+                <thead style="background: rgb(141, 134, 134); color: white;">
+                    <tr>
+                        <th class="col-4">Field</th>
+                        <th class="col-8">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for field_key, field_value in log_datas.fields.items %}
+                        <tr>
+                            <td class="fw-semi-bold" style="text-transform: capitalize;">
+                                {{ field_key|format_key }}
+                            </td>
+                            <td>{{ field_value }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    <!-- Assuming 'company' is a field in log_data -->
+                    {% if action_type == 'Create' or action_type == 'Update' %}
+                    <tr>
+                        <td class="fw-semi-bold">Details</td>
+                        <td>
+                            {% if log_datas.model == 'users.user' %}
+                                <a class="btn btn-primary btn-sm"
+                                    href="{% url 'employee:employee_details' log_datas.pk %}">
+                                    View Employee Details
+                                </a>
+                            {% elif log_datas.model == 'product.company' %}
+                                <a class="btn btn-primary btn-sm"
+                                    href="{% url 'product:company_details' log_datas.pk %}">
+                                    View Company Details
+                                </a>
+                            {% elif log_datas.model == 'product.order' %}
+                                <a class="btn btn-primary btn-sm"
+                                    href="{% url 'product:order_details' log_datas.pk %}">
+                                    View Order Details
+                                </a>
+                            {% elif log_datas.model == 'product.transaction' %}
+                                <a class="btn btn-primary btn-sm"
+                                    href="">
+                                    View Order Details
+                                </a>
+                            {% else %}
+                                No Details Available
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>            
+            </table>
+        </div>
+
+        <!-- New table for displaying changes -->
+        {% if log_datas.changes.items %}
+            <div class="table-responsive mt-4">
+                <table width="100%" class="table table-bordered table-striped table-hover fs--1 mb-0">
+                    <h6 class="fw-semi-bold ls mb-3 text-uppercase">Changes</h6>
+                    <thead style="background: rgb(141, 134, 134); color: white;">
+                        <tr>
+                            <th class="col-4">Field</th>
+                            <th class="col-4">Old Value</th>
+                            <th class="col-4">New Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for field_name, change_data in log_datas.changes.items %}
+                            <tr>
+                                <td style="text-transform: capitalize;">{{ field_name }}</td>
+                                <td>{{ change_data.old }}</td>
+                                <td>{{ change_data.new }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>            
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock content %}
+

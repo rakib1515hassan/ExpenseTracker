@@ -1,0 +1,587 @@
+{% extends 'layouts/master.html' %} 
+{% load static %} 
+{% block title %} Admin | Update {% endblock title %} 
+
+
+{% block content %}
+
+<div class="card mb-3 col-lg col-xxl-10 col-md-12">
+    <div class="card-header position-relative min-vh-25 mb-7">
+        <div class="bg-holder rounded-3 rounded-bottom-0" 
+            style="background-image: url({%static 'assets/img/generic/4.jpg'%});">
+        </div>
+            <!--/.bg-holder-->
+        <div class="avatar avatar-5xl avatar-profile">
+            {% if admin.image %}
+            <a href="{{admin.image.url}}" data-gallery="gallery-2">
+                <img class="rounded-circle img-thumbnail shadow-sm" src="{{admin.image.url}}" width="200" alt="" />
+            </a>
+            {% else %}
+            <a href="{% static 'assets/img/default.jpg' %}" data-gallery="gallery-2">
+                <img class="rounded-circle img-thumbnail shadow-sm" src="{% static 'assets/img/default.jpg' %}" width="200" alt="" />
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-10">
+                <h4 class="mb-1">
+                    {% if admin.is_superuser %}
+                    <span class="badge badge-soft-primary" style="min-width: 150px; text-align: start;">
+                        {{admin.name}}
+                    </span>
+                    {% else %}
+                    <span class="badge badge-soft-secondary" style="min-width: 150px; text-align: start;">
+                        {{admin.name}}
+                    </span>
+                    {% endif %} {% if admin.is_verified == True %}
+                    <span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified">
+                        <small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small>
+                    </span>
+                    {% endif %}
+                </h4>
+                <span class="badge bg-light text-dark fs--1">{{ admin.email }}</span><br />
+                <span class="badge bg-light text-dark fs--1">{{ admin.phone }}</span><br />
+                <!-- <h5 class="fs-0 fw-normal">Senior Software Engineer at Technext Limited</h5>
+                <p class="text-500">New York, USA</p> -->
+                <!-- <a class="btn btn-konnect-primary btn-sm px-4 mt-3" type="button" 
+                   href="">
+                   Profile
+                </a>
+
+                <a class="btn btn-konnect-default btn-sm px-3 ms-2 mt-3" type="button" 
+                    href="">
+                    Employee List
+                </a> -->
+            </div>
+
+            <div class="col-lg-2">
+                <div style="text-align: end;">
+                    <div class="d-flex" style="flex-direction: column;">
+                        <a class="btn btn-konnect-primary btn-sm px-3" type="button" 
+                            href="{% url 'admins:admin_details' admin.id %}">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            Profile
+                        </a>
+
+                        <a class="btn btn-konnect-default btn-sm px-3 mt-3" type="button" 
+                            href="{% url 'admins:admin_list' %}">
+                            <i class="fa-solid fa-list me-2"></i>
+                            Admin List
+                        </a>
+                        <!-- <a class="btn btn-konnect-default btn-sm px-3 mt-3" type="button" href="">
+                            <i class="fa-solid fa-sack-dollar me-2"></i>
+                            Salary
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-dashed-bottom my-4 d-lg-none"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile -->
+<div class="row g-0 col-lg col-xxl-10 col-md-12">
+    <!-- Profile info -->
+    <div class="col-lg-8 pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Profile Update
+                    <!-- <a href="" class="btn btn-primary btn-sm ml-2">Profile</a> -->
+                </h5>
+            </div>
+            <div class="card-body bg-light">
+                <form class="row g-3" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="first-name">First Name</label>
+                        {{form.first_name}}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="last-name">Last Name</label>
+                        {{form.last_name}}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email1">Email</label>
+                        {{form.email}} {% for error in form.email.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2">Phone</label>
+                        {{form.phone}} {% for error in form.phone.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2">Gender</label>
+                        {{form.gender}}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2">Birthdate</label>
+                        {{form.dob}}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2">Joining Date</label>
+                        {{form.joining}}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2">Termination Date</label>
+                        {{form.termination}}
+                    </div>
+
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Images</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2">Profile Image</label>
+                        {{ form.image }}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div style="display: flex; justify-content: center; margin-top: 20px;">
+                            {% if admin.image %}
+                            <div class="avatar avatar-4xl">
+                                <a href="{{ admin.image.url }}" data-gallery="gallery-2">
+                                    <img class="img-fluid rounded" src="{{ admin.image.url }}" alt="" width="300" />
+                                </a>
+                            </div>
+                            {% else %}
+                            <span class="badge badge-soft-danger fs--1">Not Uploded!</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Address</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <label class="form-label" for="email2">Address</label>
+                        {{form.address}}
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-end">
+                        <a class="btn btn-danger" href="{% url 'admins:admin_details' admin.id %}"> <i class="fa fa-times me-2"></i>Cancel </a>
+                        <button class="btn btn-primary" type="submit" style="margin-left: 10px;"><i class="fa-solid fa-pen-to-square me-2"></i>Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Start -->
+    <div class="col-lg-4 ps-lg-2">
+        <div class="sticky-sidebar">
+            <!-- Permission -->
+            <div class="card mb-3 overflow-hidden">
+                <div class="card-header">
+                    <h5 class="mb-0">Account Settings</h5>
+                </div>
+                <div class="card-body bg-light">
+                    <!-- Admin and Superadmin -->
+                    <form id="PermissionForm">
+                        {% csrf_token %}
+
+                        <div id="super-admin-permition">
+                            <h6 class="fw-bold">
+                                Is Super Admin ?
+                                <span class="fs--2 ms-1 text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Super admin have all power.">
+                                    <span class="fas fa-question-circle"></span>
+                                </span>
+                            </h6>
+                            <div class="ps-2">
+                                <div class="form-check mb-0 lh-1">
+                                    <input class="form-check-input" type="radio" value="1"
+                                        id="is_superadmin"
+                                        {% if admin.is_superuser %}checked="checked" {% endif %}
+                                        name="is_superadmin"
+                                        {% if not request.user.is_superuser %}disabled{% endif %}
+                                    />
+                                    <label class="form-check-label mb-0" for="superadmin">Yes</label>
+                                </div>
+                                <div class="form-check mb-0 lh-1">
+                                    <input class="form-check-input" type="radio" value="0"
+                                        id="is_superadmin"
+                                        {% if not admin.is_superuser %}checked="checked" {% endif %}
+                                        name="is_superadmin"
+                                        {% if not request.user.is_superuser %}disabled{% endif %}
+                                    />
+                                    <label class="form-check-label mb-0" for="not-superadmin">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3" id="admin-permition">
+                            <h6 class="fw-bold">
+                                Is Admin ?
+                                <span class="fs--2 ms-1 text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Admin have less power related to Super admin.">
+                                    <span class="fas fa-question-circle"></span>
+                                </span>
+                            </h6>
+                            <div class="ps-2">
+                                <div class="form-check mb-0 lh-1">
+                                    <input class="form-check-input" type="radio" value="1" id="is_admin" 
+                                    {% if admin.is_admin %}checked="checked" {% endif %} 
+                                    name="is_admin" 
+                                    {% if not request.user.is_superuser %}disabled{% endif %} />
+                                    <label class="form-check-label mb-0" for="admin">Yes</label>
+                                </div>
+                                <div class="form-check mb-0 lh-1">
+                                    <input class="form-check-input" type="radio" value="0" id="is_admin" 
+                                    {% if not admin.is_admin %}checked="checked" {% endif %} 
+                                    name="is_admin"
+                                    {% if not request.user.is_superuser %}disabled{% endif %} />
+                                    <label class="form-check-label mb-0" for="not-admin">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Active and Verification -->
+                    <form id="VerificationForm">
+                        {% csrf_token %}
+                        <div class="border-dashed-bottom my-3"></div>
+                        <div class="form-check form-switch mb-0 lh-1">
+                            <input class="form-check-input" type="checkbox" id="is_active"  
+                                {% if admin.is_active %}checked="checked" {% endif %} 
+                                name="is_active"
+                                {% if not request.user.is_superuser %}disabled{% endif %}
+                                />
+                            <label class="form-check-label mb-0" for="is_active">Active Status. </label>
+                        </div>
+
+                        <div class="form-check form-switch mb-0 lh-1">
+                            <input class="form-check-input" type="checkbox" id="is_verified"  
+                                {% if admin.is_verified %}checked="checked" {% endif %} 
+                                name="is_verified"
+                                {% if not request.user.is_superuser %}disabled{% endif %}
+                                />
+                            <label class="form-check-label mb-0" for="is_verified">Verification Status. </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Delete Admin -->
+            {% if request.user.is_superuser %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Danger Zone</h5>
+                </div>
+                <div class="card-body bg-light">
+                    <h5 class="fs-0">Delete this account</h5>
+                    <p class="fs--1">
+                        Once you delete a account, there is no going back. Please be certain.
+                    </p>
+                    <a type="button" class="btn btn-falcon bg-danger d-block" style="color: white;" data-bs-toggle="modal" data-bs-target="#delete-{{admin.id}}">
+                        Delete Account
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Sidebar End -->
+</div>
+
+{% include 'admin/delete.html' %} {% endblock content %} {% block js %}
+
+<!-- Permission -->
+<script>
+    $(document).ready(function () {
+        // Admin and Super Admin
+        $('#PermissionForm input[type="radio"]').on("change", function () {
+            const is_superadmin = $("#is_superadmin:checked").val();
+            const is_admin = $("#is_admin:checked").val();
+            // console.log("Check Data Super Admin = %s, Admin = %s", is_superadmin, is_admin)
+
+            Swal.fire({
+                title: "Do you want to save the changes?",
+                showDenyButton: true,
+                // showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    // ++ If request user is Super Admin
+                    // If The User is a superadmin
+                    if (is_superadmin) {
+                        if (is_superadmin == 1) {
+                            var data = {
+                                is_superadmin: 1,
+                                is_admin: 1,
+                                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                            };
+                        } else if (is_superadmin == 0) {
+                            var data = {
+                                is_superadmin: 0,
+                                is_admin: 1,
+                                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                            };
+                        }
+                    }
+
+                    // If The User is not a superadmin
+                    if (is_superadmin == 0 && is_admin == 1) {
+                        var data = {
+                            is_superadmin: 0,
+                            is_admin: 1,
+                            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                        };
+                    } else if (is_superadmin == 0 && is_admin == 0) {
+                        var data = {
+                            is_superadmin: 0,
+                            is_admin: 0,
+                            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                        };
+                    }
+
+                    //++ If request is Admin
+                    if (is_superadmin == undefined && is_admin == 1) {
+                        var data = {
+                            is_superadmin: 0,
+                            is_admin: 1,
+                            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                        };
+                    } else if (is_superadmin == undefined && is_admin == 0) {
+                        var data = {
+                            is_superadmin: 0,
+                            is_admin: 0,
+                            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                        };
+                    }
+
+                    // console.log("Data is: ", data);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'admins:permission-update' admin.id %}",
+                        data: data,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Change Admin Roll",
+                                    text: "Account settings permission saved successfully.",
+                                }).then(function () {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Error",
+                                    text: "An error occurred. Please try again!",
+                                }).then(function () {
+                                    location.reload();
+                                });
+                            }
+                        },
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info").then(function () {
+                        location.reload();
+                    });
+                }
+            });
+        });
+
+        // Seller and User
+        // $('#PermissionForm-UserType input[type="radio"]').on("change", function () {
+        //     const user_type_value = $("#user_type:checked").val();
+        //     // console.log("User Type =", user_type)
+
+        //     Swal.fire({
+        //         title: "Do you want to save the changes?",
+        //         showDenyButton: true,
+        //         // showCancelButton: true,
+        //         confirmButtonText: "Save",
+        //         denyButtonText: `Don't save`,
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             var data = {
+        //                 user_type: user_type_value,
+        //                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+        //             };
+
+        //             // console.log("Data is: ", data);
+        //             $.ajax({
+        //                 type: "POST",
+        //                 url: "",
+        //                 data: data,
+        //                 success: function (response) {
+        //                     if (response.success) {
+        //                         Swal.fire({
+        //                             icon: "success",
+        //                             title: "Change User Type.",
+        //                             text: "Account settings permission saved successfully.",
+        //                         }).then(function () {
+        //                             location.reload();
+        //                         });
+        //                     } else {
+        //                         Swal.fire({
+        //                             icon: "error",
+        //                             title: "Error",
+        //                             text: "An error occurred. Please try again!",
+        //                         }).then(function () {
+        //                             location.reload();
+        //                         });
+        //                     }
+        //                 },
+        //             });
+        //         } else if (result.isDenied) {
+        //             Swal.fire("Changes are not saved", "", "info").then(function () {
+        //                 location.reload();
+        //             });
+        //         }
+        //     });
+        // });
+
+        // Active and Verification
+        
+        
+        $('#VerificationForm input[type="checkbox"]').on("change", function () {
+            var data = {
+                is_active: $("#is_active").is(":checked") ? "True" : "False",
+                is_verified: $("#is_verified").is(":checked") ? "True" : "False",
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+            };
+            // console.log("Data is: ", data);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'admins:permission-update' admin.id %}",
+                data: data,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Verification Update",
+                            text: "Account settings permission saved successfully.",
+                        }).then(function () {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "An error occurred. Please try again!",
+                        }).then(function () {
+                            location.reload();
+                        });
+                    }
+                },
+            });
+        });
+    });
+</script>
+
+
+
+<!-- Change Password -->
+<!-- <script type="text/javascript">
+    $(document).ready(function () {
+        $("#update-password-form").submit(function (e) {
+            e.preventDefault();
+
+            var formData = {
+                n_password: $("#new-password").val(),
+                c_password: $("#confirm-password").val(),
+            };
+
+            if (formData.n_password !== formData.c_password) {
+                // alert("New password and confirm password doesn't match.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Password Mismatch",
+                    text: "New password and confirm password do not match!",
+                });
+            } else {
+                const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    data: formData,
+                    headers: {
+                        "X-CSRFToken": csrfToken,
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Password changed.",
+                                text: "Password updated successfully.",
+                            }).then(function () {
+                                // Clear input fields
+                                $("#new-password").val(""), $("#confirm-password").val("");
+                            });
+                        } else {
+                            // alert('Error: ' + response.error);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Password Change Failed!",
+                                text: response.error,
+                            });
+                        }
+                    },
+                    error: function () {
+                        // alert('An error occurred. Please try again!');
+                        Swal.fire({
+                            icon: "error",
+                            title: "Password Mismatch!",
+                            text: "An error occurred. Please try again!",
+                        });
+                    },
+                });
+            }
+        });
+    });
+</script> -->
+
+
+
+
+<!-- Validation -->
+<script>
+    var fieldErrors = {{ field_errors|safe }};
+
+    $(document).ready(function() {
+
+      if (fieldErrors.email.length > 0) {
+        $('#id_email').addClass('is-invalid');
+      }
+
+      if (fieldErrors.phone.length > 0) {
+        $('#phone').addClass('is-invalid');
+      }
+
+      if (fieldErrors.user_img.length > 0) {
+        $('#user_img').addClass('is-invalid');
+      }
+
+      if (fieldErrors.user_cov_img.length > 0) {
+        $('#user_cov_img').addClass('is-invalid');
+      }
+
+    });
+</script>
+{% endblock js %}

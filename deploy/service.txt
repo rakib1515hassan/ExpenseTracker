@@ -1,0 +1,35 @@
+[Unit]
+Description=django_test_project
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/Django-Setting-Config
+ExecStart=/var/www/Django-Setting-Config/venv/bin/gunicorn -b 127.0.0.1 config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+[Unit]
+Description=django_test_project daemon
+Requires=django_test_project.socket
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/Django-Setting-Config
+
+ExecStart=/var/www/Django-Setting-Config/venv/bin/gunicorn \
+          --bind 127.0.0.8000 \
+          inner_project_folder_name.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

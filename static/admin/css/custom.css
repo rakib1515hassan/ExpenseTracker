@@ -1,0 +1,106 @@
+.action li {
+    display: inline;
+}
+
+.action li a {
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 5px;
+    line-height: 1.5;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* table {
+        text-align: center;
+    } */
+table th {
+    font-size: 15px;
+}
+
+li .page {
+    background-color: #d9dce0 !important;
+    color: #0b0b0b !important;
+}
+
+li.active .page {
+    background-color: #2c7be5 !important;
+    color: #efeff5 !important;
+}
+
+.page {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.btn-falcon-default .page {
+    color: var(--falcon-btn-falcon-default-color);
+    background-color: var(--falcon-btn-falcon-background);
+    border-color: var(--falcon-btn-falcon-background);
+    -webkit-box-shadow: var(--falcon-btn-falcon-box-shadow);
+    box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+
+.btn_hober:hover {
+    background-color: #2c7be5 !important;
+    color: white !important;
+}
+
+
+
+
+
+
+.error-message {
+    color: red;
+    /* Set the text color to red */
+    list-style: none;
+    /* Remove list bullets */
+    margin: 0;
+    /* Remove any default margin */
+    padding: 0;
+    /* Remove any default padding */
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.user_img_show {
+    position: relative;
+    display: inline-block;
+}
+
+/* .user_img_show label {
+    display: block;
+} */
+
+.user_img_show img {
+    width: 180px;
+    height: 180px;
+    border-radius: 5%;
+    border: 1px solid #5e5c5c;
+    /* border-style: dotted; */
+    border-style: dashed;
+}
+
+.show-img {
+    display: none;
+}
+
+.remove-image {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    color: red;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* .user_img_show label:hover{
+    background-color: rgb(138, 134, 139);
+} */
+
+/* input{
+    height: 45px;
+} */

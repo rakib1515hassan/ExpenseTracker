@@ -1,0 +1,495 @@
+{% extends 'layouts/master.html' %}
+
+{% load static %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+{% block content %}
+<div class="col-lg-12 col-xl-12 col-xxl-10 mb-3 pe-lg-2 mb-3">
+    <div class="row g-3 mb-3">
+
+        <!-- User -->
+        <div class="col-md-3 col-xxl-3">
+            <div class="card h-md-100 ecommerce-card-min-width">
+                <div class="card-header d-flex flex-between-center pb-0">
+                    <h3 class="mb-0">Total User</h3>
+                    <!-- <div class="dropdown font-sans-serif btn-reveal-trigger">
+                        <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
+                            type="button" id="dropdown-weather-update" data-bs-toggle="dropdown"
+                            data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span
+                                class="fas fa-ellipsis-h fs--2"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                            aria-labelledby="dropdown-weather-update">
+                            <a class="dropdown-item" href="">View</a>
+                            <a class="dropdown-item" href="">Export</a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="card-body d-flex flex-column justify-content-end">
+                    <div class="bg-holder bg-card"
+                        style="background-image:url({% static 'assets/img/icons/spot-illustrations/corner-1.png' %});">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="font-sans-serif lh-1 mb-1 fs-4" id="total_customers">50</p>
+                            <!-- <span class="badge badge-soft-success rounded-pill fs--2">Total Active User: 545</span> -->
+                        </div>
+
+                        <div class="col-auto ps-0">
+                            <span class="badge badge-soft-primary rounded-pill fs-1">
+                                Seller : <span id="logged_in_users">
+                                    5
+                                </span>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Propety -->
+        <div class="col-md-3 col-xxl-3">
+            <div class="card h-md-100">
+                <div class="card-header d-flex flex-between-center pb-0">
+                    <h3 class="mb-0">Total Property</h3>
+                    <!-- <div class="dropdown font-sans-serif btn-reveal-trigger">
+                        <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
+                            type="button" id="dropdown-weather-update" data-bs-toggle="dropdown"
+                            data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span
+                                class="fas fa-ellipsis-h fs--2"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                            aria-labelledby="dropdown-weather-update">
+                            <a class="dropdown-item" href="">Status</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-warning" style="width: 100px;">Pending</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-success" style="width: 100px;">Approved</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-primary" style="width: 100px;">Handovers</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-danger" style="width: 100px;">Refuse</span>
+                            </a>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="card-body pt-2">
+
+                    <div class="bg-holder bg-card"
+                        style="background-image:url({% static 'assets/img/icons/spot-illustrations/corner-1.png' %});">
+                    </div>
+
+                    <div class="row g-0 h-100 align-items-center">
+                        <div class="col">
+                            <div class="d-flex align-items-center"><img class="me-3"
+                                    src="assets/img/icons/weather-icon.png" alt="" height="60" />
+                                <div>
+                                    <!-- <h6 class="mb-2">Dhaka City</h6> -->
+                                    <div class="fs-1 fw-semi-bold">
+                                        <div class="text-warning">Pending :
+                                            <span id="id_property_pending"> 2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto text-center ps-2">
+                            <div class="fs-4 fw-normal font-sans-serif text-primary mb-1 lh-1">
+                                <span id="id_total_property">65</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Services -->
+        <div class="col-md-3 col-xxl-3">
+            <div class="card h-md-100">
+                <div class="card-header d-flex flex-between-center pb-0">
+                    <h3 class="mb-0">Legal Service</h3>
+                    <!-- <div class="dropdown font-sans-serif btn-reveal-trigger">
+                        <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
+                            type="button" id="dropdown-weather-update" data-bs-toggle="dropdown"
+                            data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span
+                                class="fas fa-ellipsis-h fs--2"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                            aria-labelledby="dropdown-weather-update">
+                            <a class="dropdown-item" href="">Status</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-warning" style="width: 100px;">Pending</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-success" style="width: 100px;">Approved</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-primary" style="width: 100px;">Handovers</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-danger" style="width: 100px;">Refuse</span>
+                            </a>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="card-body pt-2">
+
+                    <div class="bg-holder bg-card"
+                        style="background-image:url({% static 'assets/img/icons/spot-illustrations/corner-2.png' %});">
+                    </div>
+
+                    <div class="row g-0 h-100 align-items-center">
+                        <div class="col">
+                            <div class="d-flex align-items-center"><img class="me-3"
+                                    src="assets/img/icons/weather-icon.png" alt="" height="60" />
+                                <div>
+                                    <!-- <h6 class="mb-2">Dhaka City</h6> -->
+                                    <!-- <div class="fs-1 fw-semi-bold">
+                                        <div class="text-warning">Pending :
+                                            <span id="id_property_pending"> {{property_pending}}</span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto text-center ps-2">
+                            <div class="fs-4 fw-normal font-sans-serif text-primary mb-1 lh-1">
+                                <span id="id_total_property">56</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interior Services -->
+        <div class="col-md-3 col-xxl-3">
+            <div class="card h-md-100">
+                <div class="card-header d-flex flex-between-center pb-0">
+                    <h3 class="mb-0">Interior Service</h3>
+                    <!-- <div class="dropdown font-sans-serif btn-reveal-trigger">
+                        <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
+                            type="button" id="dropdown-weather-update" data-bs-toggle="dropdown"
+                            data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span
+                                class="fas fa-ellipsis-h fs--2"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                            aria-labelledby="dropdown-weather-update">
+                            <a class="dropdown-item" href="">Status</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-warning" style="width: 100px;">Pending</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-success" style="width: 100px;">Approved</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-primary" style="width: 100px;">Handovers</span>
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <span class="badge rounded-pill bg-danger" style="width: 100px;">Refuse</span>
+                            </a>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="card-body pt-2">
+
+                    <div class="bg-holder bg-card"
+                        style="background-image:url({% static 'assets/img/icons/spot-illustrations/corner-4.png' %});">
+                    </div>
+
+                    <div class="row g-0 h-100 align-items-center">
+                        <div class="col">
+                            <div class="d-flex align-items-center"><img class="me-3"
+                                    src="assets/img/icons/weather-icon.png" alt="" height="60" />
+                                <div>
+                                    <!-- <h6 class="mb-2">Dhaka City</h6> -->
+                                    <!-- <div class="fs-1 fw-semi-bold">
+                                        <div class="text-warning">Pending :
+                                            <span id="id_property_pending"> {{property_pending}}</span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto text-center ps-2">
+                            <div class="fs-4 fw-normal font-sans-serif text-primary mb-1 lh-1">
+                                <span id="id_total_property">95</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %}
+        <!-- Property Status -->
+        <div class="col-md-12 col-xxl-12">
+            <div class="card h-100">
+                <div class="card-header bg-light d-flex flex-between-center border-bottom border-200 py-2">
+                    <h5 class="mb-0">Property Status</h5>
+                    <!-- <div class="dropdown font-sans-serif btn-reveal-trigger">
+                        <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
+                            type="button" id="crm-deal-forecast-bar" data-bs-toggle="dropdown" data-boundary="viewport"
+                            aria-haspopup="true" aria-expanded="false"><span
+                                class="fas fa-ellipsis-h fs--2"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                            aria-labelledby="crm-deal-forecast-bar"><a class="dropdown-item" href="#!">View</a><a
+                                class="dropdown-item" href="#!">Export</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger"
+                                href="#!">Remove</a>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="card-body d-flex align-items-center">
+                    <div class="w-100">
+                        <h3 class="text-700 mb-6">
+                            {{total_property}}
+                        </h3>
+                        <div class="progress overflow-visible rounded-3 font-sans-serif fw-medium fs--1 mt-xxl-auto"
+                            style="height: 20px;">
+
+                            <div class="progress-bar overflow-visible bg-warning border-end border-white border-2 rounded-end rounded-pill text-start"
+                                role="progressbar" style="width: {{pending_property_data}}%"
+                                aria-valuenow="{{pending_property_data}}" aria-valuemin="0" aria-valuemax="100">
+                                <span class="text-700 mt-n6">{{pending_property_data}}%</span>
+                            </div>
+
+                            <div class="progress-bar overflow-visible bg-primary border-end border-white border-2 text-start"
+                                role="progressbar" style="width: {{approved_property_data}}%"
+                                aria-valuenow="{{approved_property_data}}" aria-valuemin="0" aria-valuemax="100">
+                                <span class="text-700 mt-n6">{{approved_property_data}}%</span>
+                            </div>
+
+                            <div class="progress-bar overflow-visible bg-success border-end border-white border-2 text-start"
+                                role="progressbar" style="width: {{handovers_property_data}}%"
+                                aria-valuenow="{{handovers_property_data}}" aria-valuemin="0" aria-valuemax="100">
+                                <span class="text-700 mt-n6">{{handovers_property_data}}%</span>
+                            </div>
+
+                            <div class="progress-bar overflow-visible bg-danger rounded-start rounded-pill text-start"
+                                role="progressbar" style="width: {{refuse_property_data}}%"
+                                aria-valuenow="{{refuse_property_data}}" aria-valuemin="0" aria-valuemax="100">
+                                <span class="text-700 mt-n6">{{refuse_property_data}}%</span>
+                            </div>
+
+                        </div>
+
+                        <div class="row fs--1 fw-semi-bold text-500 g-0 mt-4">
+                            <div class="col-auto d-flex align-items-center pe-3">
+                                <span class="dot bg-warning"></span>
+                                <span>Pending</span>
+                                <span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">
+                                    ({{pending_property}})
+                                </span>
+                            </div>
+                            <div class="col-auto d-flex align-items-center pe-3">
+                                <span class="dot bg-primary"></span>
+                                <span>Running</span>
+                                <span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">
+                                    ({{approved_property}})
+                                </span>
+                            </div>
+                            <div class="col-auto d-flex align-items-center pe-3">
+                                <span class="dot bg-success"></span>
+                                <span>Handovers</span>
+                                <span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">
+                                    ({{handovers_property}})
+                                </span>
+                            </div>
+                            <div class="col-auto d-flex align-items-center">
+                                <span class="dot bg-danger"></span>
+                                <span>Refuse</span>
+                                <span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">
+                                    ({{refuse_property}})
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Graph  -->
+        <div class="col-md-12 col-xxl-12">
+            <div class="card h-100">
+                <div class="card-header bg-light d-flex flex-between-center border-bottom border-200 py-2">
+                    <!-- <h5 class="mt-1 mb-1">Property Created Comparison Chart</h5> -->
+                    <h5 class="mt-1 mb-1">Property Growth Chart</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Customer and Upcoming Booking -->
+        <div class="col-md-12 col-xxl-12">
+            <div class="row">
+
+                <!-- Top Customer -->
+                <div class="col-md-4" style="padding-right: 0;">
+                    <div class="card h-100">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Top User Activity</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="scrollbar">
+
+                                <div class="table-container" style="height: 400px; overflow-y: auto;">
+                                    <table class="table table-dashboard mb-0 table-borderless fs--1 border-200 overflow-hidden rounded-3">
+                                        <thead class="">
+                                            <tr class="text-900">
+                                                <th>S/N</th>
+                                                <th>User Info</th>
+                                                <!-- <th class="text-center">Booking</th>
+                                                <th class="text-center">Save Property</th> -->
+                                                <th class="text-center">Activity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in active_users %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center position-relative">
+                                                        <div class="avatar avatar-2xl">
+                                                            {% if user.user_img %}
+                                                            <img class="rounded-circle" src="{{ user.user_img.url }}" alt="" />
+                                                            {% else %}
+                                                            <img class="rounded-circle" src="{% static 'assets/img/default.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="flex-1 ms-3">
+                                                            <h6 class="mb-0 fw-semi-bold">
+                                                                <a class="stretched-link text-900" href="">
+                                                                    {{user.name}}
+                                                                </a>
+                                                            </h6>
+                                                            <p class="text-500 fs--2 mb-0">{{user.email}}</p>
+                                                            <p class="text-500 fs--2 mb-0">{{user.phone}}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <!-- <td class="text-center">{{user.num_bookings}}</td>
+                                                <td class="text-center">{{user.num_saved_properties}}</td> -->
+                                                <td class="text-center">{{user.total_activity}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light py-2"></div>
+                    </div>
+                </div>
+        
+                <!-- Upcoming Booking -->
+                <div class="col-md-8">
+                    <div class="card overflow-hidden">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Upcoming Booking Next 7 Days Schedule</h5>
+                            <!-- <h5 class="mb-0">Upcoming Booking Schedule</h5> -->
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-container" style="height: 400px; overflow-y: auto;">
+
+                                <table class="table table-dashboard mb-0 fs--1 border-200 overflow-hidden rounded-3">
+                                    <thead class="">
+                                        <tr class="text-900">
+                                            <th>S/N</th>
+                                            <th>Booking User Info</th>
+                                            <th class="text-center">Schedule Date</th>
+                                            <th class="text-center">Schedule Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for book in bookings %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td class="align-middle font-sans-serif fw-medium text-nowrap">
+                                                {% if book.customers %}
+                                                    <a href="">
+                                                        <span class="badge badge-soft-primary fs--1">
+                                                            {{book.customers.name}}
+                                                        </span>
+                                                    </a><br>
+                                                    <span class="badge badge-soft-dark">
+                                                        {{book.customers.email}}
+                                                    </span><br>
+                                                    <span class="badge badge-soft-dark">
+                                                        {{book.customers.phone}}
+                                                    </span><br>
+                                                {% else %}
+                                                    <a href="">
+                                                        <span class="badge badge-soft-primary fs--1">
+                                                            {{book.name}}
+                                                        </span>
+                                                    </a><br>
+                                                    <span class="badge badge-soft-dark">
+                                                        {{book.email}}
+                                                    </span><br>
+                                                    <span class="badge badge-soft-dark">
+                                                        {{book.phone}}
+                                                    </span><br>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-soft-info fs--1">
+                                                    {{ book.date|date:"D, d/M/Y" }}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-soft-success fs--1 me-2"> 
+                                                    {{ book.start_time|date:"g:i A" }}
+                                                </span>
+                                                <strong>To</strong>
+                                                <span class="badge badge-soft-danger fs--1 ms-2">
+                                                    {{ book.end_time|date:"g:i A" }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <!-- <tfoot class="bg-light">
+                                        <tr class="text-700 fw-bold">
+                                            <td></td>
+                                            <td>Total</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                    </tfoot> -->
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light py-2">
+                            <a class="btn btn-sm btn-link d-block w-100 py-2" 
+                                href="">
+                                Show all booking schedule
+                                <span class="fas fa-chevron-right ms-1 fs--2"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+{% endblock content %}

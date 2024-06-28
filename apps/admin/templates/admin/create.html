@@ -1,0 +1,239 @@
+{% extends 'layouts/master.html' %}
+{% load static %}
+
+{% block title %}
+Admin | Create
+{% endblock title %}
+
+{% block styles %}
+<style>
+
+</style>
+{% endblock styles %}
+
+{% block content %}
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row flex-between-end">
+            <div class="col-auto align-self-center">
+                <h5 class="mb-0" data-anchor="data-anchor">Admin Create</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card-body bg-light">
+        <div class="tab-content">
+            <div class="tab-pane preview-tab-pane active" role="tabpanel"
+                aria-labelledby="tab-dom-68f59ccc-3b08-4ccc-af2d-26fccf62a3ae"
+                id="dom-68f59ccc-3b08-4ccc-af2d-26fccf62a3ae">
+                <form class="row g-3" method="post" enctype="multipart/form-data">
+                    <!-- Display form-level errors if they exist -->
+                    {% if form.non_field_errors %}
+                    <ul class="errorlist">
+                        {% for error in form.non_field_errors %}
+                        <li class="error-message">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% csrf_token %}
+
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="name">First Name</label>
+                        <strong class="text-danger">*</strong>
+                        {{form.first_name}}
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="name">Last Name</label>
+                        <strong class="text-danger">*</strong>
+                        {{form.last_name}}
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="email">Email</label>
+                        <strong class="text-danger">*</strong>
+                        {{ form.email }}
+                        {% for error in form.email.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <strong class="text-danger">*</strong>
+                        {{form.phone}}
+                        {% for error in form.phone.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="user_type">Birth Date</label>
+                        <strong><span class="fs--2 ms-1">(MM/DD/YYYY)</span></strong>
+                        {{form.dob}}
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label d-block" for="user_img">Profile Image</label>
+                        {{form.image}}
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="user_type">Joining Date</label>
+                        <strong><span class="fs--2 ms-1">(MM/DD/YYYY)</span></strong>
+                        {{form.joining}}
+                    </div>
+
+                    <div class="col-lg-6 mb-3">
+                        <label class="form-label" for="user_type">Gender</label>
+                        {{form.gender}}
+                    </div>
+
+                    <div class="col-lg-8 mb-3">
+                        <label class="form-label d-block" for="user_img">Address</label>
+                        {{form.address}}
+                    </div>
+
+                    <!-- <div class="border-dashed-bottom my-3"></div> -->
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Permission</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label" for="validationCustom01">Active</label>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input fs-1 me-2" id="is_active" type="checkbox" checked=""
+                                name="is_active" />
+                            <label class="form-check-label" for="is_active">
+                                is_active checkbox
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label" for="validationCustom01">Verified</label>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input fs-1 me-2" id="is_verified" type="checkbox" checked=""
+                                name="is_verified" />
+                            <label class="form-check-label" for="is_verified">
+                                is_verified checkbox
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label" for="validationCustom01">Admin</label>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input fs-1 me-2" id="is_admin" type="checkbox" checked=""
+                                name="is_admin" disabled/>
+                            <label class="form-check-label" for="is_admin">
+                                is_admin checkbox
+                            </label>
+                        </div>
+                    </div>
+
+                    {% if request.user.is_superuser == True%}
+                    <div class="col-md-3">
+                        <label class="form-label" for="validationCustom01">Super Admin</label>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input fs-1 me-2" id="is_superuser" type="checkbox"
+                                name="is_superuser" />
+                            <label class="form-check-label" for="is_superuser">
+                                is_superuser checkbox
+                            </label>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Secret Key</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="password1">Password</label>
+                        <strong class="text-danger">*</strong>
+                        {{form.password}}
+                        {% if form.password.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.password.errors %}
+                            <li class="error-message">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="password2">Confirm Password</label>
+                        <strong class="text-danger">*</strong>
+                        {{form.password2}}
+                        {% if form.password2.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.password2.errors %}
+                            <li class="error-message">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-end">
+                        <a class="btn btn-secondary" href="{% url 'admins:admin_list' %}">
+                            <i class="fa fa-times me-2"></i>
+                            Cancel
+                        </a>
+                        <button class="btn btn-primary ms-2" type="submit">
+                            <i class="fa fa-save me-2"></i>
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <input type="file" style="border-style: dotted;"> -->
+{% endblock content %}
+
+
+{% block js %}
+<script>
+    var fieldErrors = {{ field_errors| safe }};
+
+    $(document).ready(function () {
+
+        if (fieldErrors.email.length > 0) {
+            $('#id_email').addClass('is-invalid');
+        }
+
+        if (fieldErrors.phone.length > 0) {
+            $('#id_phone').addClass('is-invalid');
+        }
+
+        if (fieldErrors.image.length > 0) {
+            $('#id_image').addClass('is-invalid');
+        }
+
+        if (fieldErrors.password2.length > 0) {
+            $('#password').addClass('is-invalid');
+            $('#password2').addClass('is-invalid');
+        }
+
+    });
+</script>
+{% endblock js %}

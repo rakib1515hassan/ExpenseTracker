@@ -1,0 +1,146 @@
+{% extends 'layouts/general.html' %}
+{% load static %}
+
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block styles %}
+<style>
+/* Override Bootstrap 5 validation styles */
+.is-invalid {
+    border-color: #e63757; /* Change border color to red */
+    background-image: none !important; /* Remove background image */
+    /* Add any additional styles you want */
+}
+
+/* Optional: Reset padding and background color */
+.is-invalid.form-control {
+    padding-right: 0; /* Reset padding */
+    background-color: #fff; /* Reset background color */
+}
+
+</style>
+{% endblock styles %}
+
+
+
+{% block content %}
+<main class="main" id="top">
+    <div class="container" data-layout="container">
+        <script>
+            var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+            if (isFluid) {
+                var container = document.querySelector('[data-layout]');
+                container.classList.remove('container');
+                container.classList.add('container-fluid');
+            }
+        </script>
+        <div class="row flex-center min-vh-100 py-6">
+            <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                <a class="d-flex flex-center mb-4" href="#">
+                    <img class="me-2" src="{% static 'assets/img/icons/spot-illustrations/falcon.png' %}" alt=""
+                        width="58" />
+                    <span class="font-sans-serif fw-bolder fs-5 d-inline-block">
+                        CardBoard
+                    </span>
+                </a>
+
+                <div class="card">
+                    <div class="card-body p-4 p-sm-5">
+                        <div class="row flex-between-center mb-2">
+                            <div class="col-auto">
+                                <h5>Log in</h5>
+                            </div>
+                        </div>
+                        
+                        <form method="post" id="login-form">
+                            {% csrf_token %}
+
+                            {% if error and error_type == 'Password' %}
+                            <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
+                                <div class="bg-danger me-3 icon-item"><span class="fas fa-times-circle text-white fs-3"></span></div>
+                                <p class="mb-0 flex-1">{{ error }}!</p>
+                                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endif %}
+
+                            {% if error and error_type == 'Email' %}
+                            <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
+                                <div class="bg-danger me-3 icon-item"><span class="fas fa-times-circle text-white fs-3"></span></div>
+                                <p class="mb-0 flex-1">{{ error }}!</p>
+                                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endif %}
+
+                            <div class="mb-3">
+                                <input class="form-control" 
+                                    type="email" placeholder="Email address" required
+                                    name="email" value="{{ request.POST.email }}" />
+                            </div>
+
+                            <div class="mb-3 position-relative">
+                                <input id="passwordInput" class="form-control" 
+                                    type="password" placeholder="Password" required 
+                                    name="password" value="{{ request.POST.password }}"/>
+
+                                <i id="togglePassword" class="far fa-eye-slash field-icon position-absolute cursor-pointer" 
+                                    style="right: 10px; top: 50%; transform: translateY(-50%);">
+                                </i>
+                            </div>          
+
+                            <div class="row flex-between-center">
+                                <div class="col-auto">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="basic-checkbox"
+                                            checked="checked" name="remember_me" />
+                                        <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <a class="fs--1" href="#">
+                                        Forgot Password?
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">
+                                    Log in
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).on('click', '#togglePassword', function() {
+        var passwordInput = $('#passwordInput');
+        var type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+        passwordInput.attr('type', type);
+
+        // Change the eye icon
+        if (type === 'password') {
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+</script>
+
+
+{% endblock js %}

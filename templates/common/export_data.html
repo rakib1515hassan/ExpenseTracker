@@ -1,0 +1,37 @@
+<div class="modal fade" id="export-all-data" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px">
+        <div class="modal-content position-relative">
+            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="get">
+                <div class="modal-body p-0">
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                        <h4 class="mb-1" id="modalExampleDemoLabel">Export Data</h4>
+                    </div>
+                    <div class="p-4 pb-0">
+                        <div class="alert alert-primary border-2 d-flex align-items-center" role="alert">
+                            <div class="me-3 icon-item">
+                                <i class="fa-solid fa-cloud-arrow-down fs-3"></i>
+                            </div>
+                            <p class="mb-0">
+                                <span>Do You Want To Download,</span><br>
+                                <span>All Data?</span>
+                            </p>
+                        </div>
+                        <input type="hidden" name="export_all">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-2"></i>Close
+                    </button>
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa-solid fa-download me-2"></i>Downlode
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

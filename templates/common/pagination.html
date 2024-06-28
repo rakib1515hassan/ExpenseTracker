@@ -1,0 +1,77 @@
+<!-- Pagination snd Counting -->
+<div class="card-footer bg-light">
+    <div class="row justify-content-between">
+
+        <!-- Counting -->
+        <div class="col-md-6 ms-3">
+            <strong>Showing 
+                <span class="text-primary">{{ page_obj.start_index }}</span>
+                To 
+                <span class="text-primary">{{ page_obj.end_index }} </span>
+                Out Of 
+                <span class="text-primary">{{ queryset_count }}</span>
+            </strong>
+            <!-- <h5>{{page_range}}</h5> -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="col-md-2 me-3">
+            <nav aria-label="Page navigation example">
+                {% if page_obj.has_other_pages %}
+                    <div class="d-flex align-items-center justify-content-end">
+                        {% if page_obj.has_previous %}
+                            <!-- First Page -->
+                            <a class="btn btn-sm btn-falcon-default me-1 btn_hober mb-1" title="First Page" 
+                                href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if query_params_string %}&{{ query_params_string }}{% endif %}">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </a>
+
+                            <!-- Previous Button -->
+                            <a class="btn btn-sm btn-falcon-default me-1 btn_hober mb-1" title="Previous" 
+                                href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if query_params_string %}&{{ query_params_string }}{% endif %}">
+                                <span class="fas fa-chevron-left"></span>
+                            </a>
+                        {% else %}
+                            <button class="btn btn-sm btn-falcon-default me-1" title="Previous" data-list-pagination="prev" disabled>
+                                <span class="fas fa-chevron-left"></span>
+                            </button>
+                        {% endif %}
+                    
+                        <ul class="pagination mb-0">
+                            {% for i in page_range %}
+                                <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                                    <a class="btn btn-sm btn-falcon-default me-1 mb-1 page btn_hober" 
+                                        href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if query_params_string %}&{{ query_params_string }}{% endif %}">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    
+                        {% if page_obj.has_next %}
+                            <!-- Next Page -->
+                            <a class="btn btn-sm btn-falcon-default ms-1 btn_hober mb-1" title="Next" 
+                                href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if query_params_string %}&{{ query_params_string }}{% endif %}">
+                                <span class="fas fa-chevron-right"></span>
+                            </a>
+
+                            <!-- Last Page -->
+                            <a class="btn btn-sm btn-falcon-default me-1 btn_hober mb-1" title="Last Page" 
+                                href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if query_params_string %}&{{ query_params_string }}{% endif %}">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </a>
+                        {% else %}
+                            <button class="btn btn-sm btn-falcon-default ms-1 mb-1" title="Next" data-list-pagination="next" disabled>
+                                <span class="fas fa-chevron-right"></span>
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </nav>
+        </div>
+
+        
+    </div>
+</div>
+        
+        

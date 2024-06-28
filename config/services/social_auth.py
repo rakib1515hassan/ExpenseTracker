@@ -1,0 +1,19 @@
+from config.env import BASE_DIR, env
+
+
+
+
+## Social Login 
+
+GOOGLE_CLIENT_ID = env('GOOGLE_CLIENT_ID', default='')
+GOOGLE_CLIENT_SECRET = env('GOOGLE_CLIENT_SECRET', default='')
+
+
+
+FACEBOOK_CLIENT_ID = env('FACEBOOK_CLIENT_ID', default='')
+FACEBOOK_CLIENT_SECRET = env('FACEBOOK_CLIENT_SECRET', default='')
+
+
+
+INSTAGRAM_CLIENT_ID = env('INSTAGRAM_CLIENT_ID', default='')
+INSTAGRAM_CLIENT_SECRET = env('INSTAGRAM_CLIENT_SECRET', default='')
