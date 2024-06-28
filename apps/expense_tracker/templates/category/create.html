@@ -1,0 +1,85 @@
+{% extends 'layouts/master.html' %}
+
+
+{% block title %}
+Category | Create
+{% endblock title %}
+
+
+{% block styles %}
+
+{% endblock styles %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6">
+        <form class="card mb-3" method="post">
+            <div class="card-header">
+                <div class="row flex-between-end">
+                    <div class="col-auto align-self-center">
+                        <h5 class="mb-0" data-anchor="data-anchor">
+                            <i class="fa-brands fa-slack me-2 fs-1"></i>
+                            Category Create
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body bg-light">
+                {% csrf_token %}
+
+                <div class="form-group row mb-3">
+                    <label class="col-md-3 col-form-label" for="old_password">Name</label>
+                    <div class="col-md-8 position-relative">
+                        {{form.name}}
+
+                        {% if form.name.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.name.errors %}
+                            <p class="fs--1">
+                                <span class="fw-bold">Error:</span>
+                                <span>{{ error }}</span>
+                            </p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md-10 offset-md-3 card-footer">
+                    <button type="submit" class="btn btn-primary ms-2 me-3">
+                        <i class="fa fa-save me-2"></i>
+                        Submit
+                    </button>
+
+                    <a href="{% url 'expense_tracker:category_list' %}" class="btn btn-secondary">
+                        <i class="fa fa-times me-2"></i>
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    var fieldErrors = {{ field_errors|safe }};
+
+    $(document).ready(function () {
+        if (fieldErrors.name.length > 0) {
+            $('#id_name').addClass('is-invalid');
+        }
+    });
+</script>
+{% endblock js %}

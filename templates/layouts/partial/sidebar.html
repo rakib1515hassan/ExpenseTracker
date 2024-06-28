@@ -38,11 +38,52 @@
                     </a>
                 </li>
 
+                <!-- Category -->
+                <li class="nav-item">
+                    <a class="nav-link {% active_menu request 'expense_tracker:category_list' %}" href="{% url 'expense_tracker:category_list' %}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fa-brands fa-slack"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Category</span>
+                        </div>
+                    </a>
+                </li>
+
+                <!-- Budget -->
+                <li class="nav-item">
+                    <a class="nav-link {% active_menu request 'expense_tracker:budget_list' %}"
+                        href="{% url 'expense_tracker:budget_list' %}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Budgets</span>
+                        </div>
+                    </a>
+                </li>
+
+                <!-- Expense -->
+                <li class="nav-item">
+                    <a class="nav-link {% active_menu request '' %}"
+                        href="">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fa-brands fa-speakap"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Expense</span>
+                        </div>
+                    </a>
+                </li>
 
 
-
-
-
+                <!-- section title -->
+                <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                    <div class="col-auto navbar-vertical-label">Administration</div>
+                    <div class="col ps-0">
+                        <hr class="mb-0 navbar-vertical-divider">
+                    </div>
+                </div>
                 
                 <!-- Change Password -->
                 <li class="nav-item">

@@ -116,6 +116,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'apps/dashboards/templates'),
             os.path.join(BASE_DIR, 'apps/auth/templates'),
+            os.path.join(BASE_DIR, 'apps/expense_tracker/templates'),
 
         ],
         'APP_DIRS': True,

@@ -19,6 +19,13 @@ from decimal import Decimal
     #! Category Model
 """
 class Category(TimestampedModel):
+    owner = models.ForeignKey(
+                User, 
+                on_delete=models.CASCADE, 
+                related_name="category", 
+                verbose_name="Owner"
+            ) 
+    
     name = models.CharField(
             verbose_name="Budget Category Name",
             max_length=255,
@@ -46,10 +53,9 @@ class Budget(TimestampedModel):
                 verbose_name="Owner"
             ) 
     
-    category = models.ForeignKey(
+    category = models.OneToOneField(
                 Category, 
                 on_delete=models.CASCADE, 
-                related_name="budgets", 
                 verbose_name="Category"
             )
 
@@ -62,7 +68,7 @@ class Budget(TimestampedModel):
             )
 
     def __str__(self):
-        return f"{self.owner.get_full_name()} - {self.category.name} - {self.amount}"
+        return f"{self.owner.get_full_name} - {self.category.name} - {self.amount}"
     
     class Meta:
         verbose_name = "Budget"
@@ -107,7 +113,7 @@ class Expense(TimestampedModel):
             )
 
     def __str__(self):
-        return f"{self.owner.get_full_name()} - {self.category.name} - {self.amount}"
+        return f"{self.owner.get_full_name} - {self.category.name} - {self.amount}"
     
     def clean(self):
         if self.amount <= 0:
@@ -144,7 +150,7 @@ class Alert(TimestampedModel):
     )
 
     def __str__(self):
-        return f"{self.user.get_full_name()} - {self.category.name} - {self.message}"
+        return f"{self.user.get_full_name} - {self.category.name} - {self.message}"
 
     class Meta:
         verbose_name = "Alert"
