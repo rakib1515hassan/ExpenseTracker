@@ -13,9 +13,13 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 ## Custom
 from apps.expense_tracker.models import Category, Budget, Expense
 
+
+"""
+    Category Form
+"""
 class CategoryForm(forms.ModelForm):
     class Meta:
-        model = Category
+        model  = Category
         fields = ['name']
 
         widgets = {
@@ -32,13 +36,17 @@ class CategoryForm(forms.ModelForm):
             field.error_messages = {'required': 'This field is required'}
 
 
+
+"""
+    Budget Form
+"""
 class BudgetForm(forms.ModelForm):
     class Meta:
-        model = Budget
+        model  = Budget
         fields = ['category', 'amount']
 
         widgets = {
-            'amount': forms.TextInput(attrs={
+            'amount': forms.NumberInput(attrs={
                 'class': 'form-control',  
                 'placeholder': 'Enter amount',
                 'required': True,
@@ -72,65 +80,33 @@ class BudgetForm(forms.ModelForm):
 
 
 
+"""
+    Expense Form
+"""
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model  = Expense
+        fields = ['category', 'amount', 'description']
 
+        widgets = {
+            'category' : Select(attrs={
+                'class': 'form-select js-choice', 
+            }),
 
+            'amount': forms.NumberInput(attrs={
+                'class': 'form-control',  
+                'placeholder': 'Enter amount',
+                'required': True,
+            }),
 
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',  
+                'placeholder': 'Write description',
+                'rows' : 4,
+                'cols' : 50
+            }),
 
-
-
-
-# class AdminUpdateForm(forms.ModelForm):
-
-#     class Meta:
-#         model = User
-#         fields = [
-#             'first_name', 'last_name', 'email', 'phone', 'image', 'gender', 'dob'
-#         ]
-
-#         widgets = {
-#             'first_name' : TextInput( attrs={
-#                     'class': 'form-control',  
-#                     'placeholder': 'Enter First Name',
-#                     'required': True,
-#                 }),
-
-#             'last_name' : TextInput( attrs={
-#                     'class': 'form-control',  
-#                     'placeholder': 'Enter Last Name',
-#                     'required': True,
-#                 }),
-
-#             'email' : EmailInput(attrs={
-#                     'class': 'form-control', 
-#                     'placeholder': 'Enter Email',
-#                     'required': True
-#                 }),
-
-#             'phone' : TextInput( attrs={
-#                     'class': 'form-control', 
-#                     'placeholder': 'Enter Phone Number',
-#                     'required': True
-#                 }),
-
-#             'dob': forms.DateInput(
-#                     format=('%Y-%m-%d'),
-#                     attrs={'class': 'form-control',
-#                         'placeholder': 'Select Birthdate',
-#                         'type': 'date'
-#                 }),
-
-#             'image' : FileInput( attrs={
-#                     # 'class': 'form-control show-img', 
-#                     'class': 'form-control', 
-#                     'accept' : 'image/jpeg image/png image/jpg',
-#                     # 'style': 'border-style: dotted;',
-#                 }),
-            
-#             'gender' : Select(attrs={
-#                     'class': 'form-select js-choice', 
-#                 }),
-#         }
-
+        }
 
 
 

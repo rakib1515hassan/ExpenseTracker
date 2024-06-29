@@ -33,7 +33,7 @@ from apps.expense_tracker.forms import CategoryForm
 
 
 """
-    Admin Create
+    Category Create
 """
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
@@ -68,7 +68,7 @@ class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
     
 
 """
-    Admin List
+    Category List
 """
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
@@ -114,6 +114,9 @@ class CategoryListView(View, LoginRequiredMixin):
 
 
 
+"""
+    Category Update
+"""
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
 class CategoryUpdateView(generic.UpdateView, LoginRequiredMixin):
@@ -146,7 +149,7 @@ class CategoryUpdateView(generic.UpdateView, LoginRequiredMixin):
 
 
 """
-    Admin Delete
+    Category Delete
 """
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')

@@ -33,7 +33,7 @@ from apps.expense_tracker.forms import BudgetForm
 
 
 """
-    Admin Create
+    Budget Create
 """
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
@@ -73,7 +73,7 @@ class BudgetCreateView(LoginRequiredMixin, generic.CreateView):
     
 
 """
-    Admin List
+    Budget List
 """
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
@@ -118,7 +118,9 @@ class BudgetListView(View, LoginRequiredMixin):
     
 
 
-
+"""
+     Budget Update
+"""
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
 class BudgetUpdateView(generic.UpdateView, LoginRequiredMixin):
@@ -157,7 +159,7 @@ class BudgetUpdateView(generic.UpdateView, LoginRequiredMixin):
 
 
 """
-    Admin Delete
+    Budget Delete
 """
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')

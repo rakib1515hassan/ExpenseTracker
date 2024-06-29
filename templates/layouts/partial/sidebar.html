@@ -40,7 +40,7 @@
 
                 <!-- Category -->
                 <li class="nav-item">
-                    <a class="nav-link {% active_menu request 'expense_tracker:category_list' %}" href="{% url 'expense_tracker:category_list' %}">
+                    <a class="nav-link {% active_menu request 'expense_tracker:category_list, expense_tracker:category_create, expense_tracker:category_update, expense_tracker:category_delete' %}" href="{% url 'expense_tracker:category_list' %}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon">
                                 <i class="fa-brands fa-slack"></i>
@@ -52,7 +52,7 @@
 
                 <!-- Budget -->
                 <li class="nav-item">
-                    <a class="nav-link {% active_menu request 'expense_tracker:budget_list' %}"
+                    <a class="nav-link {% active_menu request 'expense_tracker:budget_list, expense_tracker:budget_create, expense_tracker:budget_update, expense_tracker:budget_delete' %}"
                         href="{% url 'expense_tracker:budget_list' %}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon">
@@ -65,8 +65,8 @@
 
                 <!-- Expense -->
                 <li class="nav-item">
-                    <a class="nav-link {% active_menu request '' %}"
-                        href="">
+                    <a class="nav-link {% active_menu request 'expense_tracker:expense_list, expense_tracker:expense_create, expense_tracker:expense_update, expense_tracker:expense_delete' %}"
+                        href="{% url 'expense_tracker:expense_list' %}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon">
                                 <i class="fa-brands fa-speakap"></i>
