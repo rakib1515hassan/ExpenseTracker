@@ -1,0 +1,179 @@
+{% extends 'layouts/general.html' %}
+{% load static %}
+
+
+{% block title %}
+Registration
+{% endblock title %}
+
+{% block styles %}
+<style>
+    /* Override Bootstrap 5 validation styles */
+    .is-invalid {
+        border-color: #e63757;
+        /* Change border color to red */
+        background-image: none !important;
+        /* Remove background image */
+        /* Add any additional styles you want */
+    }
+
+    /* Optional: Reset padding and background color */
+    .is-invalid.form-control {
+        padding-right: 0;
+        /* Reset padding */
+        background-color: #fff;
+        /* Reset background color */
+    }
+
+    .error-message{
+        list-style-type: none;  
+    }
+</style>
+{% endblock styles %}
+
+
+
+{% block content %}
+<main class="main" id="top">
+    <div class="container" data-layout="container">
+        <div class="row flex-center min-vh-100 py-2">
+            <div class="col-sm-10 col-md-8 col-lg-6 col-xl-6 col-xxl-6">
+                <a class="d-flex flex-center mb-2" href="../../../index.html">
+                    <!-- <img class="me-2" src="{% static 'assets/img/icons/spot-illustrations/falcon.png' %}" alt="" width="58" /> -->
+                    <span class="font-sans-serif fw-bolder fs-5 d-inline-block">ExpenseTracker</span>
+                </a>
+                <div class="card">
+                    <div class="card-body p-4 p-sm-5">
+                        <div class="row flex-between-center mb-2">
+                            <div class="col-auto">
+                                <h5>Register</h5>
+                            </div>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="row gx-2">
+                                <div class="mb-1 col-sm-6">
+                                    <label class="form-label" for="f_name">First Name</label>
+                                    {{form.first_name}}
+                                </div>
+                            
+                                <div class="mb-1 col-sm-6">
+                                    <label class="form-label" for="l_name">Last Name</label>
+                                    {{form.last_name}}
+                                </div>
+                            </div>
+
+                            <div class="mb-1 {% if form.email.errors %} has-validation {% endif %}">
+                                <label class="form-label" for="modal-auth-phone">Email address</label>
+                                {{form.email}}
+                                {% for error in form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="mb-1 {% if form.phone.errors %} has-validation {% endif %}">
+                                <label class="form-label" for="modal-auth-email">Phone</label>
+                                {{form.phone}}
+                                {% for error in form.phone.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="row gx-2">
+                                <div class="mb-1 col-sm-6 {% if form.password.errors %} has-validation {% endif %}">
+                                    <label class="form-label" for="modal-auth-password">Password</label>
+                                    {{form.password}}
+                                    {% if form.password.errors %}
+                                    <ul class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                        <li class="error-message">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            
+                                <div class="mb-1 col-sm-6 {% if form.password.errors %} has-validation {% endif %}">
+                                    <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
+                                    {{form.password2}}
+                                    {% if form.password2.errors %}
+                                    <ul class="invalid-feedback">
+                                        {% for error in form.password2.errors %}
+                                        <li class="error-message">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="basic-register-checkbox" />
+                                <label class="form-label" for="basic-register-checkbox">I accept the <a href="#!">terms
+                                    </a>and <a href="#!">privacy policy</a></label>
+                            </div> -->
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">Register</button>
+                            </div>
+                        </form>
+                        <div class="position-relative mt-2">
+                            <hr class="bg-300" />
+                            <div class="text-center fs--1">Have an account?</div>
+                            <h5 class="text-center mt-2 fw-bold">
+                                <a href="{% url 'auth:login' %}">Login</a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).on('click', '#togglePassword', function () {
+        var passwordInput = $('#passwordInput');
+        var type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+        passwordInput.attr('type', type);
+
+        // Change the eye icon
+        if (type === 'password') {
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+</script>
+
+<script>
+    var fieldErrors = {{ field_errors| safe }};
+
+    $(document).ready(function () {
+
+        if (fieldErrors.email.length > 0) {
+            $('#id_email').addClass('is-invalid');
+        }
+
+        if (fieldErrors.phone.length > 0) {
+            $('#id_phone').addClass('is-invalid');
+        }
+
+        if (fieldErrors.password2.length > 0) {
+            $('#password').addClass('is-invalid');
+            $('#password2').addClass('is-invalid');
+        }
+
+    });
+</script>
+{% endblock js %}

@@ -7,6 +7,7 @@ app_name = 'auth'
 urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('register/', views.RegistrationView.as_view(), name='registration'),   
     # path('restrict/', views.RestrictedView.as_view(), name='restrict'), 
 
 

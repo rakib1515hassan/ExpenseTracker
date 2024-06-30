@@ -29,7 +29,7 @@ from django.views import generic
 
 ## Custom 
 from config.permission import is_superuser_or_staff, is_superadmin
-
+from apps.auth.forms import RegistrationForm
 
 
 # Create your views here.
@@ -95,7 +95,6 @@ class LoginView(View):
 
 
 
-
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
 class LogoutView(View):
@@ -104,6 +103,36 @@ class LogoutView(View):
             logout(request)
         return render(request, "auth/logout.html")
     
+
+
+class RegistrationView(generic.CreateView):
+    model = User
+    form_class = RegistrationForm
+    template_name = 'auth/registration.html'
+    success_url = reverse_lazy('auth:login')
+
+    def form_valid(self, form):
+        user_obj = form.save(commit=False)
+        user_obj.is_active = True 
+        user_obj.is_admin  = True 
+        user_obj.save()
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        field_errors = {field.name: field.errors for field in form}
+        has_errors = any(field_errors.values())
+
+        print("---------------------")
+        print(f"Field = {field_errors}, HasErrors = {has_errors}")
+        print(f"HasErrors = {has_errors}")
+        print("---------------------")
+
+        return self.render_to_response(self.get_context_data(
+                form = form, 
+                field_errors = field_errors, 
+                has_errors   = has_errors
+            ))
+
 
 
 

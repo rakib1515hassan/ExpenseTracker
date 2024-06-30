@@ -29,21 +29,13 @@ Login
 {% block content %}
 <main class="main" id="top">
     <div class="container" data-layout="container">
-        <script>
-            var isFluid = JSON.parse(localStorage.getItem('isFluid'));
-            if (isFluid) {
-                var container = document.querySelector('[data-layout]');
-                container.classList.remove('container');
-                container.classList.add('container-fluid');
-            }
-        </script>
         <div class="row flex-center min-vh-100 py-6">
             <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-                <a class="d-flex flex-center mb-4" href="#">
-                    <img class="me-2" src="{% static 'assets/img/icons/spot-illustrations/falcon.png' %}" alt=""
-                        width="58" />
+                <a class="d-flex flex-center mb-2" href="#">
+                    <!-- <img class="me-2" src="{% static 'assets/img/icons/spot-illustrations/falcon.png' %}" alt=""
+                        width="58" /> -->
                     <span class="font-sans-serif fw-bolder fs-5 d-inline-block">
-                        CardBoard
+                        ExpenseTracker
                     </span>
                 </a>
 
@@ -53,6 +45,12 @@ Login
                             <div class="col-auto">
                                 <h5>Log in</h5>
                             </div>
+                            <!-- <div class="col-auto fs--1 text-600">
+                                <span class="mb-0 undefined">Haven't any account?</span>
+                                <span class="fw-bold fs-1">
+                                    <a href="{% url 'auth:registration' %}">Sign Up</a>
+                                </span>
+                            </div> -->
                         </div>
                         
                         <form method="post" id="login-form">
@@ -99,20 +97,26 @@ Login
                                     </div>
                                 </div>
 
-                                <div class="col-auto">
+                                <!-- <div class="col-auto">
                                     <a class="fs--1" href="#">
                                         Forgot Password?
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
 
-                            <div class="mb-3">
+                            <div class="">
                                 <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">
                                     Log in
                                 </button>
                             </div>
                         </form>
-
+                        <div class="position-relative">
+                            <hr class="bg-300" />
+                            <div class="text-center fs--1">Haven't any account?</div>
+                            <h5 class="text-center mt-2 fw-bold">
+                                <a href="{% url 'auth:registration' %}">Sign Up</a>
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>

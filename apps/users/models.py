@@ -239,6 +239,8 @@ class User(AbstractBaseUser, TimestampedModel, PermissionsMixin):
 
 
 
+
+
 class UserOTP(TimestampedModel):
     user = models.ForeignKey(
         User,
