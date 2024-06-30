@@ -96,14 +96,13 @@ class ExpenseListView(View, LoginRequiredMixin):
     def get_queryset(self):
         queryset = Expense.objects.filter(owner=self.request.user)
         search_query = self.request.GET.get('search', '')
-        category_id = self.request.GET.get('category_id', '')
+        category_id  = self.request.GET.get('category_id', '')
         joining_from = self.request.GET.get('joining_from', '')
-        joining_to = self.request.GET.get('joining_to', '')
+        joining_to   = self.request.GET.get('joining_to', '')
 
         if search_query:
             queryset = queryset.filter(
                 Q(description__icontains=search_query)
-                
             )
 
         if category_id:
@@ -120,6 +119,39 @@ class ExpenseListView(View, LoginRequiredMixin):
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
+
+        # ## NOTE:- Check if the export button is clicked
+        export_data = ''
+
+        if 'export' in request.GET:
+            export_data = queryset
+        
+        elif 'export_all' in request.GET:
+            export_data = Expense.objects.filter(owner = request.user)
+
+        if export_data:
+
+            # Prepare the data for Excel export
+            excel_data = [
+                ['No', 'Categotry Name', 'Budget Amount', 'Expense Amount', 'Description', 'Create At', 'Updated At'],
+            ]
+
+            for index, expences in enumerate(export_data, start=1):
+
+                excel_data.append([
+                    index,
+                    expences.category.name,
+                    expences.category.budget.amount,
+                    expences.amount,
+                    expences.description,
+
+                    expences.created_at.strftime('%d-%m-%Y %I:%M:%S %p'),
+                    expences.updated_at.strftime('%d-%m-%Y %I:%M:%S %p'),
+                ])
+
+            
+            excel_exporter = ExcelDataDownload(excel_data, filename='Expences_export')
+            return excel_exporter.generate_response()
 
         ## NOTE:- For Pagination
         custom_paginator = CustomPaginator(queryset, self.obj_per_page)
@@ -235,3 +267,4 @@ class ExpenseDeleteView(generic.DeleteView, LoginRequiredMixin):
         messages.error(request, "Validation Error!")
         messages.warning(request, "ID Not Found!.")
         return redirect('error_404')
+    
