@@ -27,6 +27,11 @@ Expense | Update
             </div>
 
             <div class="card-body bg-light">
+
+                <!-- Show Alart Message -->
+                {% include 'common/message.html' %}
+
+                
                 {% csrf_token %}
 
                 <div class="form-group row mb-3">

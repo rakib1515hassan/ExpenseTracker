@@ -27,10 +27,13 @@ Expense | Create
             </div>
 
             <div class="card-body bg-light">
+                <!-- Show Alart Message -->
+                {% include 'common/message.html' %}
+
                 {% csrf_token %}
 
                 <div class="form-group row mb-3">
-                    <label class="col-md-3 col-form-label" for="old_password">Category</label>
+                    <label class="col-md-3 col-form-label" for="old_password">Budget Category</label>
                     <div class="col-md-8 position-relative">
                         {{form.category}}
                 

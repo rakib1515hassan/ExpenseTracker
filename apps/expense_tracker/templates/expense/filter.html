@@ -1,0 +1,62 @@
+{% load static %}
+
+<div class="modal fade" id="filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 450px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="get">
+          <div class="modal-body p-0">
+            <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+              <h4 class="mb-1" id="modalExampleDemoLabel">
+                <span class="fas fa-filter me-2 fs-1"></span>Expense Filter
+              </h4>
+            </div>
+            <div class="p-4 pb-0">
+              <div class="mb-2">
+                <label for="is_verified">Category</label>
+                <select class="form-select js-choice" id="is_verified" size="1" name="category_id"
+                  data-options='{"removeItemButton":true,"placeholder":true}'>
+                  <option value="">Select Category</option>
+                  {% for category in categories %}
+                  <option value="{{ category.id }}" {% if request.GET.category_id == category.id|stringformat:"s" %}selected{% endif %}>
+                    {{ category.name }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+        
+              <div class="mb-3">
+                <label class="form-label" for="created_at">Creating Date Range</label>
+                <div class="d-flex gap-2">
+                  <div class="flex-fill">
+                    <span class="fs--1">From</span>
+                    <input class="form-control" type="date" name="joining_from" value="{{ request.GET.joining_from }}">
+                  </div>
+                  <div class="flex-fill">
+                    <span class="fs--1">To</span>
+                    <input class="form-control" type="date" name="joining_to" value="{{ request.GET.joining_to }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer mt-3">
+            <a class="btn btn-secondary" href="{% url 'expense_tracker:expense_list' %}">
+              <i class="fa-solid fa-eraser"></i>
+              Clear
+            </a>
+            <button class="btn btn-info" type="submit" name="export">
+              <span class="fas fa-solid fa-download me-1"></span>
+              Download
+            </button>
+            <button class="btn btn-primary" type="submit">
+              <i class="fa-solid fa-magnifying-glass me-1 fs-1"></i>Find
+            </button>
+          </div>
+        </form>
+      
+      </div>
+    </div>
+</div>

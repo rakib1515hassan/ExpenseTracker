@@ -47,21 +47,33 @@ class ExpenseCreateView(LoginRequiredMixin, generic.CreateView):
     #     kwargs = super().get_form_kwargs()
     #     kwargs['user'] = self.request.user  ## Pass the user to the form
     #     return kwargs
-
+    
     def form_valid(self, form):
         expense_obj = form.save(commit=False)
         expense_obj.owner = self.request.user
+        
+        # Check if total expenses exceed the budget
+        budget = Budget.objects.filter(owner=self.request.user, category=expense_obj.category).first()
+        if budget:
+            if budget.total_expenses() + expense_obj.amount > budget.amount:
+                messages.error(
+                    self.request,
+                    f"Error: Adding this expense exceeds the budget for category '{budget.category.name}'!"
+                )
+                return self.form_invalid(form)
+        
         expense_obj.save()
+        messages.success(self.request, "Expense created successfully!")
         return super().form_valid(form)
 
     def form_invalid(self, form):
         field_errors = {field.name: field.errors for field in form}
         has_errors = any(field_errors.values())
 
-        print("---------------------")
-        print(f"Field Errors: {field_errors}")
-        print(f"Has Errors: {has_errors}")
-        print("---------------------")
+        # print("---------------------")
+        # print(f"Field Errors: {field_errors}")
+        # print(f"Has Errors: {has_errors}")
+        # print("---------------------")
 
         return self.render_to_response(
             self.get_context_data(
@@ -82,14 +94,27 @@ class ExpenseListView(View, LoginRequiredMixin):
     obj_per_page  = 10
 
     def get_queryset(self):
-        queryset = Expense.objects.filter(owner = self.request.user)
+        queryset = Expense.objects.filter(owner=self.request.user)
         search_query = self.request.GET.get('search', '')
+        category_id = self.request.GET.get('category_id', '')
+        joining_from = self.request.GET.get('joining_from', '')
+        joining_to = self.request.GET.get('joining_to', '')
 
         if search_query:
             queryset = queryset.filter(
-                Q(id__icontains = search_query)  
-                | Q(name__icontains = search_query)  
+                Q(description__icontains=search_query)
+                
             )
+
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+
+        if joining_from:
+            queryset = queryset.filter(created_at__gte=joining_from)
+
+        if joining_to:
+            queryset = queryset.filter(created_at__lte=joining_to)
+
         return queryset
 
 
@@ -100,11 +125,13 @@ class ExpenseListView(View, LoginRequiredMixin):
         custom_paginator = CustomPaginator(queryset, self.obj_per_page)
         paginated_data = custom_paginator.get_paginated_data(request)
 
+        categories = Category.objects.filter(owner=request.user)
         context = {
             'expenses': paginated_data['page_obj'],
             'page_obj': paginated_data['page_obj'],
             'page_range': paginated_data['page_range'],
             'queryset_count': queryset.count(),
+            'categories': categories,
         }
 
         return render(request, self.template_name, context)
@@ -136,19 +163,37 @@ class ExpenseUpdateView(generic.UpdateView, LoginRequiredMixin):
     #     kwargs['user'] = self.request.user  ## Pass the current user to the form
     #     return kwargs
 
-    
     def form_valid(self, form):
-        form.save()
+        expense_obj = form.save(commit=False)
+
+        ## Get the original amount of the expense being updated
+        original_expense = Expense.objects.get(pk=self.object.pk)
+        original_amount = original_expense.amount
+
+        ## Check if total expenses exceed the budget
+        budget = Budget.objects.filter(owner=self.request.user, category=expense_obj.category).first()
+        if budget:
+            ## Calculate the total expenses excluding the original amount of the expense being updated
+            new_total_expense = budget.total_expenses() - original_amount + expense_obj.amount
+            if new_total_expense > budget.amount:
+                messages.error(
+                    self.request,
+                    f"Error: Updating this expense exceeds the budget for category '{budget.category.name}'!"
+                )
+                return self.form_invalid(form)
+
+        expense_obj.save()
+        messages.success(self.request, "Expense updated successfully!")
         return super().form_valid(form)
 
     def form_invalid(self, form):
         field_errors = {field.name: field.errors for field in form}
         has_errors = any(field_errors.values())
 
-        print("---------------------")
-        print(f"Field = {field_errors}, HasErrors = {has_errors}")
-        print(f"HasErrors = {has_errors}")
-        print("---------------------")
+        # print("---------------------")
+        # print(f"Field = {field_errors}, HasErrors = {has_errors}")
+        # print(f"HasErrors = {has_errors}")
+        # print("---------------------")
 
         return self.render_to_response(self.get_context_data(
             form=form, 

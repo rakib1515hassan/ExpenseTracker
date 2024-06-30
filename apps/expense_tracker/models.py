@@ -70,6 +70,14 @@ class Budget(TimestampedModel):
     def __str__(self):
         return f"{self.owner.get_full_name} - {self.category.name} - {self.amount}"
     
+    def total_expenses(self):
+        return self.category.expenses.aggregate(
+                total=models.Sum('amount')
+            )['total'] or Decimal('0.00')
+    
+    def is_exceeded(self):
+        return self.total_expenses() > self.amount
+    
     class Meta:
         verbose_name = "Budget"
         verbose_name_plural = "Budgets"
