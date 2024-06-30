@@ -76,6 +76,19 @@
                     </a>
                 </li>
 
+                <!-- Expenses vs. Budget -->
+                <li class="nav-item">
+                    <a class="nav-link {% active_menu request 'expense_tracker:expense_vs_budget_list' %}"
+                        href="{% url 'expense_tracker:expense_vs_budget_list' %}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fa-solid fa-handshake-simple"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Expenses vs. Budget</span>
+                        </div>
+                    </a>
+                </li>
+
 
                 <!-- section title -->
                 <div class="row navbar-vertical-label-wrapper mt-3 mb-2">

@@ -2,8 +2,9 @@ from django.urls import path
 
 app_name = 'expense_tracker'
 
+from apps.expense_tracker.View import category, budget, expense, expenses_budget
 
-from apps.expense_tracker.View import category, budget, expense
+
 
 urlpatterns = [
     ## For Category
@@ -25,6 +26,10 @@ urlpatterns = [
     path('expense-list/'  , expense.ExpenseListView.as_view(), name='expense_list'),
     path('expense-update/<int:pk>/', expense.ExpenseUpdateView.as_view(), name='expense_update'),
     path('expense-delete/', expense.ExpenseDeleteView.as_view(), name='expense_delete'),
+
+
+    ## Expenses vs. Budget
+    path('expense-vs-budget-list/'  , expenses_budget.ExpensesvsBudgetListView.as_view(), name='expense_vs_budget_list'),
 
     
 ]
