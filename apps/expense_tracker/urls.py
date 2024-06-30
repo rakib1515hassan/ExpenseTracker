@@ -29,7 +29,7 @@ urlpatterns = [
 
 
     ## Expenses vs. Budget
-    path('expense-vs-budget-list/'  , expenses_budget.ExpensesvsBudgetListView.as_view(), name='expense_vs_budget_list'),
+    path('expense-vs-budget/'  , expenses_budget.ExpensesvsBudgetListView.as_view(), name='expense_vs_budget'),
 
     
 ]

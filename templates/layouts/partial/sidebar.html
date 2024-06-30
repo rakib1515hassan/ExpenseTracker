@@ -78,8 +78,8 @@
 
                 <!-- Expenses vs. Budget -->
                 <li class="nav-item">
-                    <a class="nav-link {% active_menu request 'expense_tracker:expense_vs_budget_list' %}"
-                        href="{% url 'expense_tracker:expense_vs_budget_list' %}">
+                    <a class="nav-link {% active_menu request 'expense_tracker:expense_vs_budget' %}"
+                        href="{% url 'expense_tracker:expense_vs_budget' %}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon">
                                 <i class="fa-solid fa-handshake-simple"></i>
@@ -90,6 +90,8 @@
                 </li>
 
 
+
+
                 <!-- section title -->
                 <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                     <div class="col-auto navbar-vertical-label">Administration</div>
@@ -97,11 +99,24 @@
                         <hr class="mb-0 navbar-vertical-divider">
                     </div>
                 </div>
+
+                <!-- Expenses vs. Budget -->
+                <li class="nav-item">
+                    <a class="nav-link {% active_menu request 'auth:profile' %}"
+                        href="{% url 'auth:profile' %}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Profile</span>
+                        </div>
+                    </a>
+                </li>
                 
                 <!-- Change Password -->
                 <li class="nav-item">
-                    <a class="nav-link {% active_menu request 'auth:password-change' %}"
-                         href="">
+                    <a class="nav-link {% active_menu request 'auth:password_change' %}"
+                         href="{% url 'auth:password_change' %}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon">
                                 <span class="fas fa-key"></span>

@@ -33,6 +33,9 @@ from apps.auth.forms import RegistrationForm
 
 
 # Create your views here.
+"""
+    User Login
+"""
 class LoginView(View):
     template_name = "auth/login.html"
 
@@ -95,6 +98,9 @@ class LoginView(View):
 
 
 
+"""
+    User Logout
+"""
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
 class LogoutView(View):
@@ -105,6 +111,11 @@ class LogoutView(View):
     
 
 
+
+
+"""
+    User Registration
+"""
 class RegistrationView(generic.CreateView):
     model = User
     form_class = RegistrationForm
@@ -135,7 +146,32 @@ class RegistrationView(generic.CreateView):
 
 
 
+"""
+    User Profile
+"""
+@method_decorator(user_passes_test(is_superuser_or_staff, 
+    login_url=reverse_lazy('auth:login')), name='dispatch')
+class ProfileView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = "auth/profile/profile.html"
+    context_object_name = "admin"
 
+    def get_object(self, queryset=None):
+        return self.request.user  # Return the current logged-in user
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['admin'] = self.request.user
+        # context['admin'] = self.model.objects.get(id=self.kwargs['pk']) ## For another user
+        return context
+    
+
+
+
+
+"""
+    User Change Password
+"""
 @method_decorator(user_passes_test(is_superuser_or_staff, 
     login_url=reverse_lazy('auth:login')), name='dispatch')
 class ChangePasswordView(LoginRequiredMixin, View):
@@ -168,3 +204,69 @@ class ChangePasswordView(LoginRequiredMixin, View):
         update_session_auth_hash(request, user)
         messages.success(request, "Congrats! Password successfully changed.")
         return redirect(self.success_url)
+    
+
+
+
+# """
+#     Permission Update
+# """
+# @method_decorator(user_passes_test(is_superuser_or_staff, 
+#     login_url=reverse_lazy('auth:login')), name='dispatch')
+# class PermissionUpdateView(View):
+#     def post(self, request, *args, **kwargs):
+#         try:
+#             user = User.objects.get(id=kwargs['pk'])
+#             data = request.POST
+
+#             superadmin = str(data.get('is_superadmin'))
+#             admin = str(data.get('is_admin'))
+#             # user_type = data.get('user_type')
+#             active = data.get('is_active')
+#             verify = data.get('is_verified')
+
+#             # print("--------------------")
+#             # print("superadmin =", superadmin)
+#             # print("admin =", admin)
+#             # print("user_type =", user_type)
+#             # print("active =", active)
+#             # print("verify =", verify)
+#             # print("--------------------")
+
+#             if user:
+
+#                 if superadmin == str(1) and admin == str(1):
+#                     user.is_superuser = True
+#                     user.is_admin = True
+#                     user.user_type = User.UserType.ADMIN
+
+#                 elif superadmin == str(0) and admin == str(1):
+#                     user.is_superuser = False
+#                     user.is_admin = True
+#                     user.user_type = User.UserType.ADMIN
+
+#                 elif superadmin == str(0) and admin == str(0):
+#                     user.is_superuser = False
+#                     user.is_admin = False
+#                     user.user_type = User.UserType.EMPLOYEE
+
+#                 # if user_type:
+#                 #     if user_type != user.user_type:
+#                 #         user.user_type = user_type
+
+#                 if (active and verify):
+#                     if active != user.is_active:
+#                         user.is_active = active
+#                     if verify != user.is_verified:
+#                         user.is_verified = verify
+
+#                 user.save()
+#                 response_data = {'success': True}
+#                 return JsonResponse(response_data)
+
+#         except User.DoesNotExist:
+#             response_data = {'success': False}
+#             return JsonResponse(response_data)
+
+
+

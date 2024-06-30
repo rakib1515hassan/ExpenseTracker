@@ -11,5 +11,12 @@ urlpatterns = [
     # path('restrict/', views.RestrictedView.as_view(), name='restrict'), 
 
 
-    path('password-change/', views.ChangePasswordView.as_view(), name='password-change'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('password-change/', views.ChangePasswordView.as_view(), name='password_change'),
+
+    # path(
+    #     'permission-update/<uuid:pk>/', 
+    #     views.PermissionUpdateView.as_view(), 
+    #     name='permission-update'
+    # ),
 ]

@@ -74,7 +74,7 @@ class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
     login_url=reverse_lazy('auth:login')), name='dispatch')
 class CategoryListView(View, LoginRequiredMixin):
     template_name = "category/list.html"
-    obj_per_page  = 2
+    obj_per_page  = 10
 
     def get_queryset(self):
         queryset = Category.objects.filter(owner = self.request.user)

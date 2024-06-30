@@ -324,16 +324,15 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     <!-- <a class="dropdown-item" href="#!">Set status</a> -->
-                    <a class="dropdown-item" 
-                       href="">
+                    <a class="dropdown-item" href="{% url 'auth:profile' %}">
                        Profile &amp; account
                     </a>
                     <!-- <a class="dropdown-item" href="#!">Feedback</a> -->
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" 
+                    <!-- <a class="dropdown-item" 
                        href="">
                        Settings
-                    </a>
+                    </a> -->
 
                     {% if user.is_authenticated %}
                         <a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a>
